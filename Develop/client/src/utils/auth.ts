@@ -1,51 +1,54 @@
 import {jwtDecode} from 'jwt-decode';
 
 interface UserToken {
-  id: any;
-  name: string;
-  exp: number;
+  data: {
+    username: string;
+    email: string;
+    _id: string;
+  };
 }
 
 // create a new class to instantiate for a user
 class AuthService {
   // get user data
-  getProfile() {
-    return jwtDecode<UserToken>(this.getToken() || '');
-  }
-
-  // check if user's logged in
-  loggedIn() {
-    // Checks if there is a saved token and it's still valid
+  static getProfile() {
     const token = this.getToken();
-    return !!token && !this.isTokenExpired(token); // handwaiving here
-  }
-
-  // check if token is expired
-  isTokenExpired(token: string) {
+    if (!token) return null;
     try {
       const decoded = jwtDecode<UserToken>(token);
-      if (decoded.exp < Date.now() / 1000) {
-        return true;
-      }
-
-      return false;
+      return decoded.data;
     } catch (err) {
-      return false;
+      return null;
     }
   }
 
-  getToken() {
+  // check if user's logged in
+  static loggedIn() {
+    const token = this.getToken();
+    return !!token && !this.isTokenExpired(token);
+  }
+
+  // check if token is expired
+  static isTokenExpired(token: string) {
+    const decoded: any = jwtDecode(token);
+    if (decoded.exp < Date.now() / 1000) {
+      localStorage.removeItem('id_token');
+      return true;
+    } else return false;
+  }
+
+  static getToken() {
     // Retrieves the user token from localStorage
     return localStorage.getItem('id_token');
   }
 
-  login(idToken: string) {
+  static login(idToken: string) {
     // Saves user token to localStorage
     localStorage.setItem('id_token', idToken);
     window.location.assign('/');
   }
 
-  logout() {
+  static logout() {
     // Clear user token and profile data from localStorage
     localStorage.removeItem('id_token');
     // this will reload the page and reset the state of the application
@@ -53,4 +56,4 @@ class AuthService {
   }
 }
 
-export default new AuthService();
+export default AuthService;

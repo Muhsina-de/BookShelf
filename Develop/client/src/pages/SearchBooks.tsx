@@ -38,9 +38,11 @@ const SearchBooks = () => {
     }
 
     try {
-      searchGoogleBooksQuery({ variables: { query: searchInput } });
+      console.log('Searching for:', searchInput);
+      const result = await searchGoogleBooksQuery({ variables: { query: searchInput } });
+      console.log('Search result:', result);
     } catch (err) {
-      console.error(err);
+      console.error('Search error:', err);
     }
   };
 
@@ -57,8 +59,12 @@ const SearchBooks = () => {
     }
 
     try {
+      const profile = Auth.getProfile();
+      console.log('Profile data:', profile);
+      console.log('Token:', token);
+
       await saveBookMutation({
-        variables: { userId: Auth.getProfile().id, bookInput: bookToSave },
+        variables: { userId: profile._id, bookInput: bookToSave },
       });
 
       // if book successfully saves to user's account, save book id to state
@@ -70,12 +76,13 @@ const SearchBooks = () => {
 
   useEffect(() => {
     if (searchData) {
-      const bookData = searchData.searchGoogleBooks.items.map((book: any) => ({
-        bookId: book.id,
+      const bookData = searchData.searchGoogleBooks.map((book: any) => ({
+        bookId: book.bookId,
         authors: book.volumeInfo.authors || ['No author to display'],
         title: book.volumeInfo.title,
-        description: book.volumeInfo.description,
+        description: book.volumeInfo.description || 'No description available',
         image: book.volumeInfo.imageLinks?.thumbnail || '',
+        link: book.volumeInfo.infoLink || '',
       }));
 
       setSearchedBooks(bookData);

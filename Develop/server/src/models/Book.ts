@@ -1,6 +1,7 @@
 import { Schema, type Document } from 'mongoose';
 
 export interface BookDocument extends Document {
+  _id: string;
   bookId: string;
   title: string;
   authors: string[];

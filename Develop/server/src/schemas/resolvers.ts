@@ -18,20 +18,33 @@ const resolvers: IResolvers = {
     },
 
      searchGoogleBooks: async (_parent, { query }, _context) => {
-      const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}`);
-      const data = await response.json();
-      return data.items.map((book: any) => ({
-        bookId: book.id,
-        volumeInfo: {
-          title: book.volumeInfo.title,
-          authors: book.volumeInfo.authors || ['No author to display'],
-          description: book.volumeInfo.description,
-          imageLinks: {
-            thumbnail: book.volumeInfo.imageLinks?.thumbnail || ''
-          },
-          infoLink: book.volumeInfo.infoLink || ''
+      try {
+        console.log('Searching Google Books API for:', query);
+        const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch books from Google Books API');
         }
-      }));
+        const data = await response.json();
+        console.log('Google Books API response:', data);
+        if (!data.items || !Array.isArray(data.items)) {
+          return [];
+        }
+        return data.items.map((book: any) => ({
+          bookId: book.id,
+          volumeInfo: {
+            title: book.volumeInfo.title,
+            authors: book.volumeInfo.authors || ['No author to display'],
+            description: book.volumeInfo.description || 'No description available',
+            imageLinks: {
+              thumbnail: book.volumeInfo.imageLinks?.thumbnail || ''
+            },
+            infoLink: book.volumeInfo.infoLink || ''
+          }
+        }));
+      } catch (error) {
+        console.error('Error in searchGoogleBooks:', error);
+        throw new Error('Failed to search for books');
+      }
     },
     getMe: async (_parent, _args, context) => {
       if (context.user) {
@@ -50,7 +63,7 @@ const resolvers: IResolvers = {
         throw new Error('Something is wrong!');
       }
 
-      const token = signToken(user.username, user.password, user._id);
+      const token = signToken(user.username, user.email, user._id);
       return { token, user };
     },
     login: async (_parent: any, { username, email, password }: { username: string; email: string; password: string }, _context: any) => {
@@ -66,14 +79,27 @@ const resolvers: IResolvers = {
         throw new Error('Wrong password!');
       }
 
-      const token = signToken(user.username, user.password, user._id);
+      const token = signToken(user.username, user.email, user._id);
       return { token, user };
     },
     saveBook: async (_parent: any, { userId, bookInput }: { userId: string; bookInput: any }, _context: any) => {
       try {
+        // First check if the book already exists
+        const user = await User.findById(userId);
+        if (!user) {
+          throw new Error('User not found');
+        }
+
+        // Check if the book is already saved
+        const bookExists = user.savedBooks.some(book => book.bookId === bookInput.bookId);
+        if (bookExists) {
+          return user; // Return the user without adding the duplicate book
+        }
+
+        // If book doesn't exist, add it
         const updatedUser = await User.findOneAndUpdate(
           { _id: userId },
-          { $addToSet: { savedBooks: bookInput } },
+          { $push: { savedBooks: bookInput } },
           { new: true, runValidators: true }
         );
         return updatedUser;

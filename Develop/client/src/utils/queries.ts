@@ -11,7 +11,8 @@ export const GET_ME = gql`
         title
         authors
         description
-        imagelink
+        image
+        link
       }
       bookCount
     }
@@ -21,17 +22,15 @@ export const GET_ME = gql`
 export const SEARCH_GOOGLE_BOOKS = gql`
   query searchGoogleBooks($query: String!) {
     searchGoogleBooks(query: $query) {
-      items {
-        bookId
-        volumeInfo {
-          title
-          authors
-          description
-          imageLinks {
-            thumbnail
-          }
-       
+      bookId
+      volumeInfo {
+        title
+        authors
+        description
+        imageLinks {
+          thumbnail
         }
+        infoLink
       }
     }
   }

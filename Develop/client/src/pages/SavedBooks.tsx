@@ -49,7 +49,7 @@ const SavedBooks = () => {
 
     try {
       await deleteBook({
-        variables: { userId: Auth.getProfile().id, bookId },
+        variables: { userId: Auth.getProfile()._id, bookId },
       });
 
       // upon success, remove book's id from local state
@@ -87,9 +87,9 @@ const SavedBooks = () => {
             : 'You have no saved books!'}
         </h2>
         <Row>
-          {userData.savedBooks.map((book) => {
+          {userData.savedBooks.map((book, index) => {
             return (
-              <Col md='4' key={book.bookId}>
+              <Col md='4' key={`${book.bookId}-${index}`}>
                 <Card border='dark'>
                   {book.image ? (
                     <Card.Img
