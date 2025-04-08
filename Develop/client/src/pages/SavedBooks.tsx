@@ -89,7 +89,7 @@ const SavedBooks = () => {
         <Row>
           {userData.savedBooks.map((book, index) => {
             return (
-              <Col md='4' key={`${book.bookId}-${index}`}>
+              <Col md='4' key={`${book.bookId}-${index}`} className="book-card">
                 <Card border='dark'>
                   {book.image ? (
                     <Card.Img

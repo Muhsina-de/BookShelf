@@ -1,17 +1,386 @@
+:root {
+  --primary-color: #854b5b;
+  --secondary-color: #a66b7a;
+  --accent-color: #c48b9a;
+  --background-color: #faf5f6;
+  --text-color: #2c3e50;
+  --card-background: #ffffff;
+  --gradient-primary: linear-gradient(135deg, #854b5b 0%, #a66b7a 100%);
+  --gradient-secondary: linear-gradient(135deg, #a66b7a 0%, #c48b9a 100%);
+  --shadow-sm: 0 2px 4px rgba(133, 75, 91, 0.1);
+  --shadow-md: 0 4px 6px rgba(133, 75, 91, 0.1);
+  --shadow-lg: 0 10px 15px rgba(133, 75, 91, 0.1);
+  --transition: all 0.3s ease;
+  --dark-text: #251519;
+  --submit-button: #c99eaa;
+}
+
 body {
-  font-family: 'Rubik', sans-serif;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: 'Rubik Mono One', sans-serif;
+.navbar {
+  background: var(--gradient-primary);
+  padding: 1rem 0;
+  box-shadow: var(--shadow-md);
 }
 
-.small {
-  font-weight: 300;
-  font-style: italic;
+.navbar-brand {
+  color: white !important;
+  font-weight: 700;
+  font-size: 1.5rem;
+  transition: var(--transition);
+}
+
+.navbar-brand:hover {
+  transform: translateY(-2px);
+}
+
+.nav-link {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-weight: 500;
+  transition: var(--transition);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+
+.nav-link:hover {
+  color: white !important;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  transition: var(--transition);
+  background: var(--card-background);
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+.card-title {
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.card-text {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex-grow: 1;
+}
+
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Grid layout for cards */
+.row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 0;
+}
+
+.col-12 {
+  width: 100%;
+  padding: 0;
+}
+
+/* Button container at the bottom of card */
+.card-body .d-flex {
+  margin-top: auto;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: var(--transition);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-info {
+  background: var(--gradient-secondary);
+  border: none;
+  color: white;
+}
+
+.btn-info:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-danger {
+  background: var(--accent-color);
+  border: none;
+}
+
+.btn-danger:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.form-control {
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e1e1e1;
+  transition: var(--transition);
+  background-color: white;
+}
+
+.form-control:focus {
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+.container {
+  padding: 2rem 0;
+}
+
+h1, h2 {
+  color: var(--primary-color);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.text-light {
+  color: white !important;
+}
+
+.bg-dark {
+  background: var(--gradient-primary) !important;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .card-img-top {
+    height: 150px;
+  }
+  
+  .btn {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Loading State */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+.loading::after {
+  content: '';
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid var(--secondary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Page title styles */
+h2.pt-5 {
+  color: var(--dark-text);
+  font-weight: 700;
+}
+
+/* User's saved books title */
+.text-light h1 {
+  color: var(--dark-text) !important;
+}
+
+/* Change the submit button color */
+.btn-success {
+  background-color: var(--submit-button) !important;
+  border-color: var(--submit-button) !important;
+}
+
+.btn-success:hover {
+  background-color: #b88d99 !important;
+  border-color: #b88d99 !important;
+}
+
+/* Book card specific styles */
+.book-card {
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto 20px;
+}
+
+.book-card .card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.book-card .card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+.book-card .card-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.book-card .card-title {
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  max-height: 3em;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.book-card .card-text {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  max-height: 4.5em;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  flex-grow: 1;
+}
+
+/* Button container at the bottom of card */
+.book-card .card-body .btn-block {
+  margin-top: auto;
+}
+
+/* Ensure search bar remains full width */
+.search-form .form-control {
+  width: 100%;
+}
+
+/* Decorative elements for the search container */
+.text-light.bg-dark.p-5 {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Circle in top right */
+.text-light.bg-dark.p-5 .shape-1 {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 80px;
+  height: 80px;
+  border: 2px solid var(--dark-text);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+/* Square in bottom right */
+.text-light.bg-dark.p-5 .shape-2 {
+  position: absolute;
+  bottom: 30px;
+  right: 40px;
+  width: 50px;
+  height: 50px;
+  border: 2px solid var(--dark-text);
+  border-radius: 8px;
+  transform: rotate(15deg);
+  z-index: 0;
+}
+
+/* Circle in middle right */
+.text-light.bg-dark.p-5 .shape-3 {
+  position: absolute;
+  top: 80px;
+  right: 100px;
+  width: 60px;
+  height: 60px;
+  border: 2px solid var(--dark-text);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+/* Square in middle */
+.text-light.bg-dark.p-5 .shape-4 {
+  position: absolute;
+  top: 120px;
+  right: 150px;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--dark-text);
+  border-radius: 8px;
+  transform: rotate(-10deg);
+  z-index: 0;
+}
+
+/* Circle in bottom middle */
+.text-light.bg-dark.p-5 .shape-5 {
+  position: absolute;
+  bottom: 60px;
+  right: 180px;
+  width: 30px;
+  height: 30px;
+  border: 2px solid var(--dark-text);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+/* Ensure the container content stays above the decorative elements */
+.text-light.bg-dark.p-5 .container {
+  position: relative;
+  z-index: 1;
 }
