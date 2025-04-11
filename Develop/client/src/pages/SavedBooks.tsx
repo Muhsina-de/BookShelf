@@ -49,7 +49,7 @@ const SavedBooks = () => {
 
     try {
       await deleteBook({
-        variables: { userId: Auth.getProfile()._id, bookId },
+        variables: { userId: Auth.getProfile()?._id || '', bookId },
       });
 
       // upon success, remove book's id from local state

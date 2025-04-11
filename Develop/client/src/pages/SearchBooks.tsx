@@ -62,6 +62,13 @@ const SearchBooks = () => {
       const profile = Auth.getProfile();
       console.log('Profile data:', profile);
       console.log('Token:', token);
+        // Use optional chaining to safely access profile._id
+        const userId = profile?._id;
+
+        if (!userId) {
+          console.error('User ID is not available in the profile');
+          return false;
+        }
 
       await saveBookMutation({
         variables: { userId: profile._id, bookInput: bookToSave },
