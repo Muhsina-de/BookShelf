@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Navbar, Nav, Container, Modal, Tab } from 'react-bootstrap';
 import SignUpForm from './SignupForm';
 import LoginForm from './LoginForm';
-
+import bookshelf from '../assets/bookshelf.png';
 import Auth from '../utils/auth';
 
 const AppNavbar = () => {
@@ -14,8 +14,14 @@ const AppNavbar = () => {
     <>
       <Navbar bg='dark' variant='dark' expand='lg'>
         <Container fluid>
-          <Navbar.Brand as={Link} to='/'>
-            Google Books Search
+        <Navbar.Brand as={Link} to='/' className='d-flex align-items-center'>
+            <img
+              src={bookshelf} // <- Change this to your actual image path
+              
+              height='50'
+              className='me-2'
+            />
+            <span>BookShelf - <em>Google Books Search</em></span>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls='navbar' />
           <Navbar.Collapse id='navbar' className='d-flex flex-row-reverse'>
