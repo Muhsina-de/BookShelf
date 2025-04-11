@@ -1,5 +1,6 @@
 import express from 'express';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import type { Request, Response } from 'express';
 import db from './config/connection.js'
 import { ApolloServer } from '@apollo/server';
@@ -7,6 +8,9 @@ import { expressMiddleware } from '@apollo/server/express4';
 import { typeDefs, resolvers } from './schemas/index.js';
 import { authenticateToken } from './utils/auth.js';
 import cors from 'cors';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const server = new ApolloServer({
   typeDefs,
@@ -21,7 +25,9 @@ const startApolloServer = async () => {
   const app = express();
 
   app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: process.env.NODE_ENV === 'production' 
+      ? process.env.CLIENT_URL || 'https://your-frontend-url.onrender.com'
+      : 'http://localhost:3000',
     credentials: true
   }));
   app.use(express.urlencoded({ extended: false }));
