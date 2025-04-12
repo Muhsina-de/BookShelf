@@ -407,14 +407,17 @@ footer {
   background: var(--gradient-primary) !important;
   box-shadow: var(--shadow-md);
   margin-top: auto;
+  font-size: 0.9rem;
 }
 
 footer a {
   transition: var(--transition);
+  opacity: 0.9;
 }
 
 footer a:hover {
   color: var(--accent-color) !important;
+  opacity: 1;
   transform: translateY(-1px);
 }
 
