@@ -10,6 +10,8 @@ BookShelf is a MERN stack application that allows users to search for books usin
 
 ## 🖥️ Live Demo
 
+[View Live Demo](https://bookshelf-frontend-mp1p.onrender.com/)
+
 ![BookShelf App Screenshot](./assets/BookShelf-Homepage.png)
 
 ## ✨ Features

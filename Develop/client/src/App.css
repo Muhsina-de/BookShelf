@@ -384,3 +384,47 @@ h2.pt-5 {
   position: relative;
   z-index: 1;
 }
+
+/* Modal Tab Styling */
+.modal .nav-link {
+  color: var(--text-color) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.modal .nav-link.active {
+  color: white !important;
+  background-color: var(--primary-color) !important;
+}
+
+.modal .nav-link:not(.active) {
+  background-color: transparent !important;
+  border: 1px solid var(--primary-color);
+}
+
+/* Footer Styling */
+footer {
+  background: var(--gradient-primary) !important;
+  box-shadow: var(--shadow-md);
+  margin-top: auto;
+}
+
+footer a {
+  transition: var(--transition);
+}
+
+footer a:hover {
+  color: var(--accent-color) !important;
+  transform: translateY(-1px);
+}
+
+/* Ensure footer stays at bottom */
+.min-100-vh {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  flex: 1 0 auto;
+}

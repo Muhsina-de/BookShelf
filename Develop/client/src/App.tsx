@@ -9,6 +9,7 @@ import { setContext } from '@apollo/client/link/context';
 import { Outlet } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 const httpLink = createHttpLink({
   uri: import.meta.env.VITE_GRAPHQL_URI || 'http://localhost:3001/graphql',
@@ -47,7 +48,7 @@ function App() {
         <div className="container">
           <Outlet />
         </div>
-        <Navbar />
+        <Footer />
       </div>
     </ApolloProvider>
   );
