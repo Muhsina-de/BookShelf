@@ -11,16 +11,19 @@ import { Outlet } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
+// Create HTTP link for GraphQL API connection
+// Uses environment variable for production, falls back to localhost for development
 const httpLink = createHttpLink({
   uri: import.meta.env.VITE_GRAPHQL_URI || 'http://localhost:3001/graphql',
   credentials: 'same-origin'
 });
 
-// Construct request middleware that will attach the JWT token to every request as an `authorization` header
+// Authentication middleware for Apollo Client
+// Attaches JWT token to every GraphQL request
 const authLink = setContext((_, { headers }: { headers?: Record<string, string> }) => {
-  // get the authentication token from local storage if it exists
+  // Retrieve authentication token from localStorage
   const token = localStorage.getItem('id_token');
-  // return the headers to the context so httpLink can read them
+  // Attach token to request headers if it exists
   return {
     headers: {
       ...headers,
@@ -29,23 +32,32 @@ const authLink = setContext((_, { headers }: { headers?: Record<string, string> 
   };
 });
 
+// Initialize Apollo Client with authentication and caching configuration
 const client = new ApolloClient({
-  // Set up our client to execute the `authLink` middleware prior to making the request to our GraphQL API
+  // Combine authentication middleware with HTTP link
   link: authLink.concat(httpLink),
+  // Use in-memory cache for storing query results
   cache: new InMemoryCache(),
+  // Configure default options for queries
   defaultOptions: {
     watchQuery: {
+      // Always fetch fresh data from network
       fetchPolicy: 'network-only',
     },
   },
 });
 
+// Main App component
 function App() {
   return (
+    // Wrap application with Apollo Client provider
     <ApolloProvider client={client}>
+      {/* Main layout container with minimum viewport height */}
       <div className="flex-column justify-flex-start min-100-vh">
         <Navbar />
+        {/* Main content container */}
         <div className="container">
+          {/* Router outlet for rendering nested routes */}
           <Outlet />
         </div>
         <Footer />

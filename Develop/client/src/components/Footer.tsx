@@ -1,12 +1,15 @@
+import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import bookshelf from '../assets/bookshelf.png';
 
-const Footer = () => {
+// Footer component with decorative background shapes
+const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
   
   return (
     <footer className="bg-dark text-light py-2 footer-decorative">
+      {/* Decorative background shapes */}
       <div className="footer-shape-1"></div>
       <div className="footer-shape-2"></div>
       <div className="footer-shape-3"></div>
@@ -18,6 +21,8 @@ const Footer = () => {
       <div className="footer-shape-9"></div>
       <div className="footer-shape-10"></div>
       <div className="footer-shape-11"></div>
+
+      {/* Footer content container */}
       <Container>
         <Row className="align-items-center justify-content-between g-0">
           <Col xs={12} md={3} className="d-flex align-items-center">
