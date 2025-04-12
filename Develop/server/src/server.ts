@@ -1,5 +1,4 @@
 import express from 'express';
-import type { Request, Response } from 'express';
 import db from './config/connection.js'
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
