@@ -407,12 +407,154 @@ footer {
   background: var(--gradient-primary) !important;
   box-shadow: var(--shadow-md);
   margin-top: auto;
-  font-size: 0.9rem;
+  width: 100%;
+  padding: 0.5rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+footer .container {
+  max-width: 1200px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Footer Decorative Elements */
+.footer-decorative {
+  position: relative;
+}
+
+.footer-shape-1 {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 60px;
+  height: 60px;
+  border: 2px solid var(--dark-text);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.footer-shape-2 {
+  position: absolute;
+  bottom: 10px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  border: 2px solid var(--dark-text);
+  border-radius: 8px;
+  transform: rotate(15deg);
+  z-index: 0;
+}
+
+.footer-shape-3 {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  width: 55px;
+  height: 55px;
+  border: 2px solid var(--dark-text);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.footer-shape-4 {
+  position: absolute;
+  bottom: 20px;
+  left: 40px;
+  width: 45px;
+  height: 45px;
+  border: 2px solid var(--dark-text);
+  border-radius: 8px;
+  transform: rotate(-10deg);
+  z-index: 0;
+}
+
+.footer-shape-5 {
+  position: absolute;
+  top: 30px;
+  left: 60px;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--dark-text);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.footer-shape-6 {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  border: 2px solid var(--dark-text);
+  border-radius: 8px;
+  transform: rotate(20deg);
+  z-index: 0;
+}
+
+.footer-shape-7 {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  width: 45px;
+  height: 45px;
+  border: 2px solid var(--dark-text);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.footer-shape-8 {
+  position: absolute;
+  top: 40%;
+  right: 15%;
+  width: 55px;
+  height: 55px;
+  border: 2px solid var(--dark-text);
+  border-radius: 8px;
+  transform: rotate(-15deg);
+  z-index: 0;
+}
+
+.footer-shape-9 {
+  position: absolute;
+  bottom: 30%;
+  right: 25%;
+  width: 50px;
+  height: 50px;
+  border: 2px solid var(--dark-text);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.footer-shape-10 {
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  width: 45px;
+  height: 45px;
+  border: 2px solid var(--dark-text);
+  border-radius: 8px;
+  transform: rotate(10deg);
+  z-index: 0;
+}
+
+.footer-shape-11 {
+  position: absolute;
+  top: 35%;
+  left: 35%;
+  width: 80px;
+  height: 80px;
+  border: 2px solid var(--dark-text);
+  border-radius: 50%;
+  transform: rotate(-5deg);
+  z-index: 0;
 }
 
 footer a {
   transition: var(--transition);
   opacity: 0.9;
+  font-weight: 500;
 }
 
 footer a:hover {
